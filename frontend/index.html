@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEPSE Virtual Trader - Learn Nepal Stock Exchange Risk-Free</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+</head>
+<body>
+
+    <!-- Modular Header Component -->
+    <div id="site-header"></div>
+
+    <!-- Hero Section -->
+    <section style="background: var(--hero-radial); padding: 64px 24px; text-align: center; border-bottom: 1px solid var(--border-color);">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <span class="badge badge-blue" style="margin-bottom: 16px;">🇳🇵 NEPAL'S PREMIER FINANCIAL SIMULATOR</span>
+            <h1 style="font-size: 3rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 20px;">
+                Trade Real NEPSE Stocks with <br>
+                <span style="background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Rs. 10,00,000 Virtual Capital
+                </span>
+            </h1>
+            <p style="font-size: 1.15rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 32px;">
+                Experience authentic market volatility, practice technical setups, test order execution with genuine broker fees, and master investing from certified mentors.
+            </p>
+
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="register.html" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">
+                    🚀 Claim Your Rs. 10 Lakhs Portfolio
+                </a>
+                <a href="market.html" class="btn btn-outline" style="padding: 14px 28px; font-size: 1rem;">
+                    Open Live Terminal
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Live Gainers & Losers -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 48px;">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700;">🔥 Top Gainers</h3>
+                    <span class="badge badge-green">Today's Bulls</span>
+                </div>
+                <div id="gainersList" style="display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Loading top gainers...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700;">❄️ Top Losers</h3>
+                    <span class="badge badge-red">Pullback / Dip</span>
+                </div>
+                <div id="losersList" style="display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Loading top losers...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Step Guide -->
+        <div style="text-align: center; margin-bottom: 48px;">
+            <span class="badge badge-blue" style="margin-bottom: 8px;">SIMPLE 4-STEP LEARNING PATH</span>
+            <h2 style="font-size: 2rem; font-weight: 800;">How NEPSE Virtual Trading Works</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 32px; text-align: left;">
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 12px;">1️⃣</div>
+                    <h4 style="font-weight: 700; margin-bottom: 8px;">Claim Rs. 10 Lakhs</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Sign up in 30 seconds. Your virtual wallet is instantly credited with ten lakh virtual rupees.</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 12px;">2️⃣</div>
+                    <h4 style="font-weight: 700; margin-bottom: 8px;">Trade Authentic Stocks</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Execute BUY & SELL orders with real-world NEPSE broker commissions, SEBON fees, and DP charges.</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 12px;">3️⃣</div>
+                    <h4 style="font-weight: 700; margin-bottom: 8px;">Track WACC & P&L</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Watch your holdings update dynamically. Learn how Weighted Average Cost of Capital (WACC) impacts net profits.</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 2rem; margin-bottom: 12px;">4️⃣</div>
+                    <h4 style="font-weight: 700; margin-bottom: 8px;">Learn from Mentors</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary);">Enroll in structured video courses created by experienced Nepali analysts and trading practitioners.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academy Courses Preview -->
+        <div style="margin-bottom: 48px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">Academy Courses</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">From primary market fundamentals to advanced swing setups</p>
+                </div>
+                <a href="courses.html" class="btn btn-outline">View All Courses &rarr;</a>
+            </div>
+            <div id="homeCoursesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                <p style="color: var(--text-muted);">Loading academy courses...</p>
+            </div>
+        </div>
+
+        <!-- Latest News Preview -->
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">Market News & IPO Intelligence</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Stay ahead with curated updates on economy, regulations, and upcoming issues</p>
+                </div>
+                <a href="news.html" class="btn btn-outline">Read All News &rarr;</a>
+            </div>
+            <div id="homeNewsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                <p style="color: var(--text-muted);">Loading market updates...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modular Footer Component -->
+    <div id="site-footer"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/layout.js?v=2"></script>
+    <script>
+    async function loadHomeData() {
+        const mRes = await API.get('/market/stocks.php');
+        if (mRes.success) {
+            const gainersEl = document.getElementById('gainersList');
+            const losersEl = document.getElementById('losersList');
+
+            if (gainersEl && mRes.gainers) {
+                gainersEl.innerHTML = mRes.gainers.map(s => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--bg-dark); border-radius: var(--radius-sm);">
+                        <div>
+                            <strong style="font-size: 0.95rem;">${s.symbol}</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">${s.company_name}</div>
+                        </div>
+                        <div style="text-align: right; font-family: var(--font-mono);">
+                            <div style="font-weight: 700;">Rs. ${parseFloat(s.ltp).toFixed(2)}</div>
+                            <div style="color: var(--profit-green); font-size: 0.82rem;">+${parseFloat(s.change_percent).toFixed(2)}%</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            if (losersEl && mRes.losers) {
+                losersEl.innerHTML = mRes.losers.map(s => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--bg-dark); border-radius: var(--radius-sm);">
+                        <div>
+                            <strong style="font-size: 0.95rem;">${s.symbol}</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">${s.company_name}</div>
+                        </div>
+                        <div style="text-align: right; font-family: var(--font-mono);">
+                            <div style="font-weight: 700;">Rs. ${parseFloat(s.ltp).toFixed(2)}</div>
+                            <div style="color: var(--loss-red); font-size: 0.82rem;">${parseFloat(s.change_percent).toFixed(2)}%</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        const cRes = await API.get('/courses/list.php');
+        if (cRes.success && cRes.courses) {
+            document.getElementById('homeCoursesGrid').innerHTML = cRes.courses.slice(0, 3).map(c => `
+                <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <span class="badge badge-blue">${c.level}</span>
+                            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--profit-green);">
+                                ${c.price <= 0 ? 'FREE' : formatNPR(c.price)}
+                            </span>
+                        </div>
+                        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">${c.title}</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">${c.description.substring(0, 120)}...</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--border-color);">
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">👨‍🏫 ${c.instructor_name}</span>
+                        <a href="course-detail.html?id=${c.id}" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.85rem;">View Course</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        const nRes = await API.get('/news/list.php');
+        if (nRes.success && nRes.news) {
+            document.getElementById('homeNewsGrid').innerHTML = nRes.news.slice(0, 3).map(n => `
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span class="badge ${n.category === 'IPO/FPO' ? 'badge-green' : 'badge-blue'}">${n.category}</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted);">${n.published_at.substring(0, 10)}</span>
+                    </div>
+                    <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px;">${n.title}</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">${n.content.substring(0, 110)}...</p>
+                </div>
+            `).join('');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadHomeData);
+    </script>
+</body>
+</html>

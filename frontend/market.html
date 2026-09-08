@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEPSE Live Market Terminal - Virtual Trading</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <style>
+    .sector-badge {
+        background: var(--bg-surface); border: 1px solid var(--border-color);
+        color: var(--text-secondary); padding: 6px 14px; border-radius: var(--radius-full);
+        font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: var(--transition-fast);
+    }
+    .sector-badge:hover, .sector-badge.active { background: var(--brand-primary); color: white; border-color: var(--brand-primary); }
+    .market-table tbody tr:hover { background: var(--bg-card-hover); }
+    .ticker-up { color: var(--profit-green); }
+    .ticker-down { color: var(--loss-red); }
+
+    /* Modal styling */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
+        z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-box {
+        width: 100%; max-width: 460px; background: var(--bg-surface);
+        border: 1px solid var(--border-color-light); box-shadow: var(--shadow-lg);
+    }
+    .modal-header {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        border-bottom: 1px solid var(--border-color); padding-bottom: 12px;
+    }
+    .close-btn { background: transparent; color: var(--text-secondary); font-size: 1.6rem; cursor: pointer; }
+    .order-tab-group {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        background: var(--bg-dark); padding: 4px; border-radius: var(--radius-md); margin-top: 14px;
+    }
+    .order-tab {
+        padding: 10px; font-weight: 700; border-radius: var(--radius-sm); cursor: pointer;
+        background: transparent; color: var(--text-secondary); transition: var(--transition-fast);
+    }
+    .order-tab.active-buy { background: var(--profit-green); color: #052e16; }
+    .order-tab.active-sell { background: var(--loss-red); color: white; }
+    .breakdown-card {
+        background: var(--bg-dark); border: 1px solid var(--border-color);
+        border-radius: var(--radius-md); padding: 12px 16px; margin-top: 14px; font-size: 0.82rem;
+    }
+    .breakdown-row {
+        display: flex; justify-content: space-between; margin-bottom: 4px;
+        color: var(--text-secondary); font-family: var(--font-mono);
+    }
+    </style>
+</head>
+<body>
+
+    <!-- Modular Header Component -->
+    <div id="site-header"></div>
+
+    <!-- Terminal Container -->
+    <div class="main-container">
+        <!-- Terminal Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+            <div>
+                <h1 style="font-size: 1.8rem; font-weight: 800;">NEPSE Live Market Terminal</h1>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Real-time stock quotations, order depth, and instant order placement</p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button type="button" class="btn btn-outline" onclick="syncMarketData()" style="border-color: var(--brand-primary); color: var(--brand-primary);" title="Scrape latest NEPSE prices or trigger simulation fallback">
+                    🔄 Sync Live / Fallback Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Search & Sector Filter Bar -->
+        <div class="card" style="padding: 16px; margin-bottom: 24px;">
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                <div style="position: relative; width: 100%; max-width: 380px;">
+                    <input type="text" id="stockSearchInput" oninput="filterStocks()" placeholder="Search symbol or company name (e.g. NICA, NABIL)..." class="form-control" style="padding-left: 36px;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">🔍</span>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="sectorFilters">
+                    <button type="button" class="sector-badge active" onclick="setSectorFilter('ALL', this)">All Sectors</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stocks Table -->
+        <div class="card" style="padding: 0; overflow-x: auto;">
+            <table class="market-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--border-color); background: var(--bg-surface); font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">
+                        <th style="padding: 14px 20px;">Symbol</th>
+                        <th style="padding: 14px 20px;">Company</th>
+                        <th style="padding: 14px 20px;">Sector</th>
+                        <th style="padding: 14px 20px; text-align: right;">LTP (Rs.)</th>
+                        <th style="padding: 14px 20px; text-align: right;">Change</th>
+                        <th style="padding: 14px 20px; text-align: right;">Day High / Low</th>
+                        <th style="padding: 14px 20px; text-align: right;">Volume</th>
+                        <th style="padding: 14px 20px; text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="stocksTableBody">
+                    <tr><td colspan="8" style="padding: 32px; text-align: center; color: var(--text-muted);">Loading live NEPSE securities...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modular Trading Modal Component -->
+    <div id="site-trading-modal"></div>
+
+    <!-- Modular Footer Component -->
+    <div id="site-footer"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/trading.js"></script>
+    <script src="assets/js/layout.js?v=2"></script>
+    <script>
+    let allStocks = [];
+    let currentSector = 'ALL';
+
+    async function loadData() {
+        const res = await API.get('/market/stocks.php');
+        if (res.success && res.stocks) {
+            allStocks = res.stocks;
+
+            if (res.sectors) {
+                document.getElementById('sectorFilters').innerHTML = `
+                    <button type="button" class="sector-badge ${currentSector === 'ALL' ? 'active' : ''}" onclick="setSectorFilter('ALL', this)">All Sectors</button>
+                    ${res.sectors.map(s => `
+                        <button type="button" class="sector-badge ${currentSector === s ? 'active' : ''}" onclick="setSectorFilter('${s}', this)">${s}</button>
+                    `).join('')}
+                `;
+            }
+
+            renderStocksTable();
+        }
+    }
+
+    function setSectorFilter(sec, btn) {
+        currentSector = sec;
+        document.querySelectorAll('.sector-badge').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterStocks();
+    }
+
+    function filterStocks() {
+        const q = document.getElementById('stockSearchInput').value.toLowerCase().trim();
+        const rows = document.querySelectorAll('.stock-row');
+
+        rows.forEach(r => {
+            const sym = r.getAttribute('data-symbol');
+            const name = r.getAttribute('data-name');
+            const sec = r.getAttribute('data-sector');
+
+            const matchQuery = sym.includes(q) || name.includes(q);
+            const matchSec = (currentSector === 'ALL' || sec === currentSector);
+
+            r.style.display = (matchQuery && matchSec) ? '' : 'none';
+        });
+    }
+
+    function renderStocksTable() {
+        const tbody = document.getElementById('stocksTableBody');
+        if (allStocks.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="padding: 32px; text-align: center; color: var(--text-muted);">No stocks found.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = allStocks.map(s => {
+            const isUp = parseFloat(s.change_amount) >= 0;
+            return `
+                <tr class="stock-row" data-symbol="${s.symbol.toLowerCase()}" data-name="${s.company_name.toLowerCase()}" data-sector="${s.sector}" style="border-bottom: 1px solid var(--border-color);">
+                    <td style="padding: 16px 20px; font-weight: 700; font-family: var(--font-mono); font-size: 1rem; color: var(--brand-primary);">${s.symbol}</td>
+                    <td style="padding: 16px 20px; font-size: 0.88rem; color: var(--text-secondary); max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.company_name}</td>
+                    <td style="padding: 16px 20px; font-size: 0.82rem;"><span class="badge badge-blue" style="font-size: 0.72rem;">${s.sector}</span></td>
+                    <td style="padding: 16px 20px; text-align: right; font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem;">Rs. ${parseFloat(s.ltp).toFixed(2)}</td>
+                    <td style="padding: 16px 20px; text-align: right; font-family: var(--font-mono); font-weight: 600; font-size: 0.88rem;">
+                        <span class="${isUp ? 'ticker-up' : 'ticker-down'}">
+                            ${isUp ? '+' : ''}${parseFloat(s.change_amount).toFixed(2)} (${parseFloat(s.change_percent).toFixed(2)}%)
+                        </span>
+                    </td>
+                    <td style="padding: 16px 20px; text-align: right; font-family: var(--font-mono); font-size: 0.82rem;">
+                        <span style="color: var(--profit-green);">${parseFloat(s.high_price).toFixed(1)}</span> / 
+                        <span style="color: var(--loss-red);">${parseFloat(s.low_price).toFixed(1)}</span>
+                    </td>
+                    <td style="padding: 16px 20px; text-align: right; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">${parseInt(s.volume).toLocaleString()}</td>
+                    <td style="padding: 16px 20px; text-align: center;">
+                        <button type="button" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;"
+                            onclick="openTradeModal(${s.id}, '${s.symbol}', '${s.company_name.replace(/'/g, "\\'")}', ${s.ltp}, 'BUY')">
+                            Trade
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    async function syncMarketData() {
+        showToast('Syncing market prices...', 'success');
+        const res = await API.get('/market/sync.php');
+        if (res.success) {
+            showToast(res.message, 'success');
+            await loadData();
+            await loadTicker();
+        } else {
+            showToast(res.message || 'Sync failed', 'error');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

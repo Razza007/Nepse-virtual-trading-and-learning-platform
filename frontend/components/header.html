@@ -1,0 +1,35 @@
+<!-- 1. Live Top Ticker -->
+<div class="ticker-wrap">
+    <div class="ticker-title">NEPSE LIVE</div>
+    <div class="ticker-items" id="liveTickerItems">
+        <span style="color: var(--text-muted); font-size: 0.8rem;">Loading live scrips...</span>
+    </div>
+</div>
+
+<!-- 2. Sticky Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <span style="font-size: 1.5rem;">📈</span>
+            <span>NEPSE<span style="color: var(--brand-primary);">Sim</span></span>
+            <span class="brand-badge">VIRTUAL</span>
+        </a>
+
+        <ul class="nav-links" id="mainNavLinks">
+            <li><a href="market.html" class="nav-link" data-page="market">Market Terminal</a></li>
+            <li><a href="news.html" class="nav-link" data-page="news">News & IPOs</a></li>
+            <li><a href="courses.html" class="nav-link" data-page="courses">Courses</a></li>
+            <span id="dynamicNavLinks" style="display: flex; gap: 28px;"></span>
+        </ul>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch Light/Dark Mode" style="cursor: pointer; padding: 6px 14px; border-radius: 9999px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);">
+                <span id="themeToggleIcon">🌙</span> <span id="themeToggleLabel">Dark Mode</span>
+            </button>
+            <div id="authNavSection" style="display: flex; align-items: center; gap: 14px;">
+                <a href="login.html" class="btn btn-outline" style="padding: 8px 16px;">Sign In</a>
+                <a href="register.html" class="btn btn-primary" style="padding: 8px 18px;">Start with Rs. 10 Lakhs</a>
+            </div>
+        </div>
+    </div>
+</nav>
