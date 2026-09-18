@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create account | NEP VERSE</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        (function () {
+            const saved = localStorage.getItem('nepse_bw_theme') || 'black';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+</head>
+
+<body class="auth-page">
+    <main class="auth-shell">
+        <section class="auth-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <a class="auth-brand" href="index.html">📈 NEP<span>VERSE</span></a>
+                <button type="button" class="theme-toggle-btn" id="authThemeToggle" onclick="
+                    const cur = document.documentElement.getAttribute('data-theme') || 'black';
+                    const nxt = cur === 'black' ? 'white' : 'black';
+                    document.documentElement.setAttribute('data-theme', nxt);
+                    localStorage.setItem('nepse_bw_theme', nxt);
+                    this.innerText = nxt === 'black' ? '⚪ White' : '⚫ Black';
+                " style="padding: 4px 10px; font-size: 0.75rem;">
+                    Switch Theme
+                </button>
+            </div>
+            <div id="registerFormSection">
+                <p class="auth-kicker">START YOUR JOURNEY</p>
+                <h1>Create account</h1>
+                <p class="auth-subtitle">Register via Firebase and claim Rs. 10 Lakhs virtual capital.</p>
+
+                <form id="registerForm" novalidate>
+                    <label for="registerName">Full name</label>
+                    <input id="registerName" name="name" type="text" autocomplete="name" placeholder="Your full name"
+                        required>
+
+                    <label for="registerEmail">Email address</label>
+                    <input id="registerEmail" name="email" type="email" autocomplete="email"
+                        placeholder="you@example.com" required>
+
+                    <label for="registerPassword">Password</label>
+                    <input id="registerPassword" name="password" type="password" autocomplete="new-password"
+                        minlength="6" placeholder="At least 6 characters" required>
+
+                    <button class="btn btn-primary auth-submit" type="submit">Create account</button>
+                    <p id="registerMessage" class="auth-message" role="alert"></p>
+                </form>
+
+                <div class="auth-divider"><span>or</span></div>
+                <button id="googleRegisterButton" class="google-button" type="button">
+                    <span class="google-icon">G</span> Sign up with Google
+                </button>
+
+                <p class="auth-footer">Already registered? <a href="login.html">Sign in</a></p>
+            </div>
+
+            <!-- Email Verification Required Card (Shown after registration) -->
+            <div id="verificationSentCard" style="display: none; text-align: center; padding: 12px 0;">
+                <div style="font-size: 3rem; margin-bottom: 12px;">📬</div>
+                <p class="auth-kicker" style="color: var(--profit-green);">EMAIL VERIFICATION REQUIRED</p>
+                <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; color: var(--text-primary);">Check
+                    Your Gmail / Inbox</h2>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">
+                    We have sent a verification link to:<br>
+                    <strong id="sentEmailAddress"
+                        style="color: var(--text-primary); font-size: 1.05rem; word-break: break-all;"></strong>
+                </p>
+
+                <div
+                    style="text-align: left; padding: 16px; margin-bottom: 24px; font-size: 0.86rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                    <div
+                        style="font-weight: 700; margin-bottom: 8px; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+                        <span>📋</span> Next Steps to Activate Account:
+                    </div>
+                    <ol
+                        style="padding-left: 18px; margin: 0; color: var(--text-secondary); display: flex; flex-direction: column; gap: 6px;">
+                        <li>Open your <strong>Gmail / Email app</strong>.</li>
+                        <li>Look for the verification email (check Spam folder if needed).</li>
+                        <li>Click the <strong>verification link</strong> in the email.</li>
+                        <li>Return and sign in with your email &amp; password!</li>
+                    </ol>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="login.html" class="btn btn-primary"
+                        style="width: 100%; text-align: center; padding: 12px;">
+                        Go to Sign In &rarr;
+                    </a>
+                    <button type="button" class="btn btn-outline" id="btnResendFromRegister"
+                        style="width: 100%; font-size: 0.85rem; padding: 10px;">
+                        Didn't get the email? Resend link
+                    </button>
+                    <p id="resendMessage" class="auth-message" style="margin-top: 6px;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="assets/js/firebase-auth.js?v=6"></script>
+</body>
+
+</html>

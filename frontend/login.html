@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sign in | NEPSE Sim</title>
+	<link rel="stylesheet" href="assets/css/style.css">
+	<script>
+		(function() {
+			const saved = localStorage.getItem('nepse_bw_theme') || 'black';
+			document.documentElement.setAttribute('data-theme', saved);
+		})();
+	</script>
+</head>
+<body class="auth-page">
+	<main class="auth-shell">
+		<section class="auth-card">
+			<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+				<a class="auth-brand" href="index.html">📈 NEPSE<span>Sim</span></a>
+				<button type="button" class="theme-toggle-btn" id="authThemeToggle" onclick="
+					const cur = document.documentElement.getAttribute('data-theme') || 'black';
+					const nxt = cur === 'black' ? 'white' : 'black';
+					document.documentElement.setAttribute('data-theme', nxt);
+					localStorage.setItem('nepse_bw_theme', nxt);
+					this.innerText = nxt === 'black' ? '⚪ White' : '⚫ Black';
+				" style="padding: 4px 10px; font-size: 0.75rem;">
+					Switch Theme
+				</button>
+			</div>
+			<p class="auth-kicker">VIRTUAL TRADING PLATFORM</p>
+			<h1>Welcome back</h1>
+			<p class="auth-subtitle">Sign in with Firebase to continue trading with Rs. 10 Lakhs.</p>
+
+			<form id="loginForm" novalidate>
+				<label for="loginEmail">Email address</label>
+				<input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+
+				<label for="loginPassword">Password</label>
+				<input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+
+				<button class="btn btn-primary auth-submit" type="submit">Sign in</button>
+				<p id="loginMessage" class="auth-message" role="alert"></p>
+			</form>
+
+			<div class="auth-divider"><span>or</span></div>
+			<button id="googleLoginButton" class="google-button" type="button">
+				<span class="google-icon">G</span> Continue with Google
+			</button>
+
+			<p class="auth-footer">New to NEPSE Sim? <a href="register.html">Create an account</a></p>
+		</section>
+	</main>
+	<script type="module" src="assets/js/firebase-auth.js?v=6"></script>
+</body>
+</html>
